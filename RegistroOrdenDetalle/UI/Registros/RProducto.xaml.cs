@@ -32,8 +32,8 @@ namespace RegistroOrdenDetalle.UI.Registros
             ProductoIdTextBox.Text = "0";
             NombreProductoTextBox.Text = string.Empty;
             PrecioTextBox.Text = string.Empty;
-            
-            //Recargar();
+            producto = new Producto();
+            Recargar();
         }
 
         private void Recargar()
@@ -58,7 +58,7 @@ namespace RegistroOrdenDetalle.UI.Registros
         {
             bool paso = false;
 
-            if (producto.ProductoId == 0)
+            if (producto.ProductoId == 0 && producto.Precio > 0)
                 paso = ProductosBLL.Guardar(producto);
             else
             {
@@ -68,8 +68,16 @@ namespace RegistroOrdenDetalle.UI.Registros
                 }
                 else
                 {
-                    MessageBox.Show("No se Puede Modificar un Cliente que no existe");
-                    return;
+                    if(producto.Precio <= 0)
+                    {
+                        MessageBox.Show("No se Puede Guardar un producto con valor 0");
+                        return;
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se Puede Modificar un Cliente que no existe");
+                        return;
+                    }
                 }
             }
 

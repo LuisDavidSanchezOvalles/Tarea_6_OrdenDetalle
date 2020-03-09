@@ -6,7 +6,7 @@ using System.Windows.Controls;
 
 namespace RegistroOrdenDetalle.Validaciones
 {
-    public class CantidadValidation : ValidationRule
+    class IdForaneaValidation : ValidationRule
     {
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
@@ -19,7 +19,7 @@ namespace RegistroOrdenDetalle.Validaciones
                 }
                 catch
                 {
-                    return new ValidationResult(false, "La Cantidad Debe Ser un Número Entero");
+                    return new ValidationResult(false, "El Id Debe Ser Entero");
                 }
 
                 if (id > 0)
@@ -28,7 +28,7 @@ namespace RegistroOrdenDetalle.Validaciones
                     return new ValidationResult(false, "La Cantidad debe Ser Mayor que 0");
 
             }
-            return new ValidationResult(false, "Debes Colocar una Cantidad");
+            return new ValidationResult(false, "Debes Colocar Un Id Valido");
         }
     }
 }

@@ -19,36 +19,39 @@ namespace RegistroOrdenDetalle.UI.Registros
     /// </summary>
     public partial class ROrden : Window
     {
-        Orden orden = new Orden();
-        
+        Contenedor contenedor = new Contenedor();
         public ROrden()
         {
             InitializeComponent();
-            this.DataContext = orden;
+            this.DataContext = contenedor;
             OrdenIdTextBox.Text = "0";
-            FechaDatePicker.SelectedDate = DateTime.Now;
+            ClienteIdTextBox.Text = "0";
+            ProductoIdTextBox.Text = "0";
             PrecioTextBox.Text = "0";
+            CantidadTextBox.Text = "0";
+            MontoTextBox.Text = "0";
+            FechaDatePicker.SelectedDate = DateTime.Now;
         }
 
         private void Recargar()
         {
             this.DataContext = null;
-            this.DataContext = orden;
+            this.DataContext = contenedor;
         }
 
         private void Limpiar()
         {
             OrdenIdTextBox.Text = "0";
-            ClienteIdTextBox.Text = string.Empty;
+            ClienteIdTextBox.Text = "0";
             NombresClienteTextBox.Text = string.Empty;
-            ProductoIdTextBox.Text = string.Empty;
+            ProductoIdTextBox.Text = "0";
             DescripcionTextBox.Text = string.Empty;
             FechaDatePicker.SelectedDate = DateTime.Now;
             PrecioTextBox.Text = "0";
-            CantidadTextBox.Text = string.Empty;
-            MontoTextBox.Text = string.Empty;
-            orden.OrdenesDetalle = new List<OrdenDetalle>();
-            orden = new Orden();
+            CantidadTextBox.Text = "0";
+            MontoTextBox.Text = "0";
+            contenedor.orden.OrdenesDetalle = new List<OrdenDetalle>();
+            contenedor = new Contenedor();
             Recargar();
         }
 
@@ -59,36 +62,48 @@ namespace RegistroOrdenDetalle.UI.Registros
 
         private bool ExisteEnLaBaseDeDatos()
         {
-            Orden OrdenAnterior = OrdenesBLL.Buscar(orden.OrdenId);
+            Orden OrdenAnterior = OrdenesBLL.Buscar(contenedor.orden.OrdenId);
 
             return OrdenAnterior != null;
         }
 
         private bool ExisteEnLaBaseDeDatosClientes()
         {
-            Cliente ClienteAnterior = ClientesBLL.Buscar(orden.ClienteId);
+            Cliente ClienteAnterior = ClientesBLL.Buscar(Convert.ToInt32(ClienteIdTextBox.Text));
 
             return ClienteAnterior != null;
         }
 
         private bool ExisteEnLaBaseDeDatosProductos()
         {
-            Producto ProductoAnterior = ProductosBLL.Buscar(Convert.ToInt32(ClienteIdTextBox.Text));
+            Producto ProductoAnterior = ProductosBLL.Buscar(Convert.ToInt32(ProductoIdTextBox.Text));
 
             return ProductoAnterior != null;
+        }
+
+        private bool Validar()
+        {
+            bool paso = true;
+
+            if (contenedor.orden.OrdenesDetalle.Count == 0)
+                paso = false;
+
+            return paso;
         }
 
         private void GuardarButton_Click(object sender, RoutedEventArgs e)
         {
             bool paso = false;
+            if (!Validar())
+                return;
 
-            if (orden.OrdenId == 0)
-                paso = OrdenesBLL.Guardar(orden);
+            if (contenedor.orden.OrdenId == 0 && ExisteEnLaBaseDeDatosClientes())
+                paso = OrdenesBLL.Guardar(contenedor.orden);
             else
             {
-                if (ExisteEnLaBaseDeDatos() && ExisteEnLaBaseDeDatosClientes() && ExisteEnLaBaseDeDatosProductos())
+                if (ExisteEnLaBaseDeDatos() && ExisteEnLaBaseDeDatosClientes())
                 {
-                    paso = OrdenesBLL.Modificar(orden);
+                    paso = OrdenesBLL.Modificar(contenedor.orden);
                 }
                 else
                 {
@@ -110,7 +125,7 @@ namespace RegistroOrdenDetalle.UI.Registros
 
         private void EliminarButton_Click(object sender, RoutedEventArgs e)
         {
-            if (OrdenesBLL.Eliminar(orden.OrdenId))
+            if (OrdenesBLL.Eliminar(contenedor.orden.OrdenId))
             {
                 MessageBox.Show("Eliminado");
                 Limpiar();
@@ -121,23 +136,25 @@ namespace RegistroOrdenDetalle.UI.Registros
 
         private void BuscarButton_Click(object sender, RoutedEventArgs e)
         {
-            Orden OrdenAnterior = OrdenesBLL.Buscar(orden.OrdenId);
+            Orden OrdenAnterior = OrdenesBLL.Buscar(contenedor.orden.OrdenId);
 
             if (OrdenAnterior != null)
             {
-                orden = OrdenAnterior;
+                contenedor.orden = OrdenAnterior;
                 Recargar();
             }
             else
             {
                 Limpiar();
-                MessageBox.Show("Persona no encontrada");
+                MessageBox.Show("Orden no encontrada");
             }
         }
 
         private void AgregarButton_Click(object sender, RoutedEventArgs e)
         {
-            orden.OrdenesDetalle.Add(new OrdenDetalle(orden.OrdenId, Convert.ToInt32(ProductoIdTextBox.Text), 
+            if (!ExisteEnLaBaseDeDatosProductos())
+                return;
+            contenedor.orden.OrdenesDetalle.Add(new OrdenDetalle(contenedor.orden.OrdenId, Convert.ToInt32(ProductoIdTextBox.Text), 
                 DescripcionTextBox.Text, Convert.ToInt32(CantidadTextBox.Text), Convert.ToDecimal(PrecioTextBox.Text),
                 Convert.ToDecimal(MontoTextBox.Text)));
 
@@ -155,7 +172,7 @@ namespace RegistroOrdenDetalle.UI.Registros
         {
             if (OrdenDataGrid.Items.Count > 1 && OrdenDataGrid.SelectedIndex < OrdenDataGrid.Items.Count - 1)
             {
-                orden.OrdenesDetalle.RemoveAt(OrdenDataGrid.SelectedIndex);
+                contenedor.orden.OrdenesDetalle.RemoveAt(OrdenDataGrid.SelectedIndex);
                 Recargar();
             }
         }
@@ -214,12 +231,26 @@ namespace RegistroOrdenDetalle.UI.Registros
 
         private void CantidadTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            decimal Monto, Precio = Convert.ToDecimal(PrecioTextBox.Text);
-            int Cantidad = Convert.ToInt32(CantidadTextBox.Text);
+            if(!string.IsNullOrWhiteSpace(CantidadTextBox.Text))
+            {
+                foreach (var caracter in CantidadTextBox.Text)
+                {
+                    if (!Char.IsDigit(caracter))
+                    {
+                        contenedor.detalle.Cantidad = 0;
+                        CantidadTextBox.Clear();
+                    }
+                    else
+                    {
+                        PrecioTextBox.Text = Convert.ToString(contenedor.detalle.Precio);
+                        CantidadTextBox.Text = Convert.ToString(contenedor.detalle.Cantidad);
 
-            Monto = Precio * Cantidad;
+                        contenedor.detalle.Monto = contenedor.detalle.Precio * contenedor.detalle.Cantidad;
 
-            MontoTextBox.Text = Convert.ToString(Monto);
+                        MontoTextBox.Text = Convert.ToString(contenedor.detalle.Monto);
+                    }
+                }
+            }
         }
     }
 }
