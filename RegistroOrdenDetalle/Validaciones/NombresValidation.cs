@@ -18,7 +18,7 @@ namespace RegistroOrdenDetalle.Validaciones
 
                 foreach (var caracter in cadena)
                 {
-                    if (!char.IsLetter(caracter) || !char.IsWhiteSpace(caracter))
+                    if (!char.IsLetter(caracter) && !char.IsWhiteSpace(caracter))
                         return new ValidationResult(false, "El nombre solo puede tener letras");
                 }
 

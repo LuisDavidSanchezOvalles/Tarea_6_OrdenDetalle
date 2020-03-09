@@ -27,6 +27,7 @@ namespace RegistroOrdenDetalle.UI.Registros
             this.DataContext = orden;
             OrdenIdTextBox.Text = "0";
             FechaDatePicker.SelectedDate = DateTime.Now;
+            PrecioTextBox.Text = "0";
         }
 
         private void Recargar()
@@ -43,7 +44,7 @@ namespace RegistroOrdenDetalle.UI.Registros
             ProductoIdTextBox.Text = string.Empty;
             DescripcionTextBox.Text = string.Empty;
             FechaDatePicker.SelectedDate = DateTime.Now;
-            PrecioTextBox.Text = string.Empty;
+            PrecioTextBox.Text = "0";
             CantidadTextBox.Text = string.Empty;
             MontoTextBox.Text = string.Empty;
             orden.OrdenesDetalle = new List<OrdenDetalle>();
@@ -81,6 +82,20 @@ namespace RegistroOrdenDetalle.UI.Registros
                 try
                 {
                     int i = Convert.ToInt32(ClienteIdTextBox.Text);
+                }
+                catch (FormatException)
+                {
+                    paso = false;
+                }
+            }
+
+            if (string.IsNullOrWhiteSpace(CantidadTextBox.Text))
+                paso = false;
+            else
+            {
+                try
+                {
+                    int i = Convert.ToInt32(CantidadTextBox.Text);
                 }
                 catch (FormatException)
                 {
@@ -260,15 +275,12 @@ namespace RegistroOrdenDetalle.UI.Registros
 
         private void CantidadTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(CantidadTextBox.Text))
-            {
-                decimal Monto, Precio = Convert.ToDecimal(PrecioTextBox.Text);
-                int Cantidad = Convert.ToInt32(CantidadTextBox.Text);
+            decimal Monto, Precio = Convert.ToDecimal(PrecioTextBox.Text);
+            int Cantidad = Convert.ToInt32(CantidadTextBox.Text);
 
-                Monto = Precio * Cantidad;
+            Monto = Precio * Cantidad;
 
-                MontoTextBox.Text = Convert.ToString(Monto);
-            }
+            MontoTextBox.Text = Convert.ToString(Monto);
         }
     }
 }

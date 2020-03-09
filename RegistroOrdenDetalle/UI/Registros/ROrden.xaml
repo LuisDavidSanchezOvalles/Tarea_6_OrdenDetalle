@@ -63,7 +63,7 @@
             <TextBox.Text>
                 <Binding Path="OrdenesDetalle.Cantidad" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                     <Binding.ValidationRules>
-                        <ExceptionValidationRule/>
+                        <src:IdValidation x:Name="Validacion" ValidatesOnTargetUpdated="True"/>
                     </Binding.ValidationRules>
                 </Binding>
             </TextBox.Text>
