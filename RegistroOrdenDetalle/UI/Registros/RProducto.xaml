@@ -47,7 +47,7 @@
             <TextBox.Text>
                 <Binding Path="ProductoId" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                     <Binding.ValidationRules>
-                        <ExceptionValidationRule/>
+                        <src:IdValidation x:Name="IdValidation" ValidatesOnTargetUpdated="True"/>
                     </Binding.ValidationRules>
                 </Binding>
             </TextBox.Text>
@@ -56,7 +56,7 @@
             <TextBox.Text>
                 <Binding Path="NombreProducto" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                     <Binding.ValidationRules>
-                        <src:NombresValidation x:Name="nombresValidation" ValidatesOnTargetUpdated="True"/>
+                        <src:NombresProductoValidation x:Name="NombresProductoValidation" ValidatesOnTargetUpdated="True"/>
                     </Binding.ValidationRules>
                 </Binding>
             </TextBox.Text>
@@ -66,7 +66,7 @@
             <TextBox.Text>
                 <Binding Path="Precio" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                     <Binding.ValidationRules>
-                        <ExceptionValidationRule/>
+                        <src:PrecioValidacion x:Name="PrecioValidation" ValidatesOnTargetUpdated="True"/>
                     </Binding.ValidationRules>
                 </Binding>
             </TextBox.Text>

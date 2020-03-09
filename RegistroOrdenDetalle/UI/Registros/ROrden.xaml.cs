@@ -57,64 +57,6 @@ namespace RegistroOrdenDetalle.UI.Registros
             Limpiar();
         }
 
-        private bool Validar()
-        {
-            bool paso = true;
-
-            if (string.IsNullOrWhiteSpace(OrdenIdTextBox.Text))
-                paso = false;
-            else
-            {
-                try
-                {
-                    int i = Convert.ToInt32(OrdenIdTextBox.Text);
-                }
-                catch (FormatException)
-                {
-                    paso = false;
-                }
-            }
-
-            if (string.IsNullOrWhiteSpace(ClienteIdTextBox.Text))
-                paso = false;
-            else
-            {
-                try
-                {
-                    int i = Convert.ToInt32(ClienteIdTextBox.Text);
-                }
-                catch (FormatException)
-                {
-                    paso = false;
-                }
-            }
-
-            if (string.IsNullOrWhiteSpace(CantidadTextBox.Text))
-                paso = false;
-            else
-            {
-                try
-                {
-                    int i = Convert.ToInt32(CantidadTextBox.Text);
-                }
-                catch (FormatException)
-                {
-                    paso = false;
-                }
-            }
-
-            if (FechaDatePicker.SelectedDate == null || FechaDatePicker.SelectedDate > DateTime.Now)
-                paso = false;
-
-            if (orden.OrdenesDetalle.Count == 0)
-                paso = false;
-
-            if (paso == false)
-                MessageBox.Show("Datos invalidos");
-
-            return paso;
-        }
-
         private bool ExisteEnLaBaseDeDatos()
         {
             Orden OrdenAnterior = OrdenesBLL.Buscar(orden.OrdenId);
@@ -139,9 +81,6 @@ namespace RegistroOrdenDetalle.UI.Registros
         private void GuardarButton_Click(object sender, RoutedEventArgs e)
         {
             bool paso = false;
-
-            if (!Validar())
-                return;
 
             if (orden.OrdenId == 0)
                 paso = OrdenesBLL.Guardar(orden);

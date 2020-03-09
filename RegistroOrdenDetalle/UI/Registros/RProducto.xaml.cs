@@ -24,7 +24,7 @@ namespace RegistroOrdenDetalle.UI.Registros
         {
             InitializeComponent();
             this.DataContext = producto;
-            ProductoIdTextBox.Text = "0";
+            ProductoIdTextBox.Text = string.Empty;
         }
 
         private void Limpiar()
@@ -47,52 +47,6 @@ namespace RegistroOrdenDetalle.UI.Registros
             Limpiar();
         }
 
-        private bool Validar()
-        {
-            bool paso = true;
-
-            if (string.IsNullOrWhiteSpace(ProductoIdTextBox.Text))
-                paso = false;
-            else
-            {
-                try
-                {
-                    int i = Convert.ToInt32(ProductoIdTextBox.Text);
-                }
-                catch (FormatException)
-                {
-                    paso = false;
-                }
-            }
-
-            if (string.IsNullOrWhiteSpace(NombreProductoTextBox.Text))
-                paso = false;
-            else
-            {
-                foreach (var caracter in NombreProductoTextBox.Text)
-                {
-                    if (!char.IsLetter(caracter) && !char.IsWhiteSpace(caracter))
-                        paso = false;
-                }
-            }
-
-            if (string.IsNullOrWhiteSpace(PrecioTextBox.Text))
-                paso = false;
-            else
-            {
-                try
-                {
-                    decimal i = Convert.ToDecimal(PrecioTextBox.Text);
-                }
-                catch (FormatException)
-                {
-                    paso = false;
-                }
-            }
-
-            return paso;
-        }
-
         private bool ExisteEnLaBaseDeDatos()
         {
             Producto ProductoAnterior = ProductosBLL.Buscar(producto.ProductoId);
@@ -103,9 +57,6 @@ namespace RegistroOrdenDetalle.UI.Registros
         private void GuardarButton_Click(object sender, RoutedEventArgs e)
         {
             bool paso = false;
-
-            if (!Validar())
-                return;
 
             if (producto.ProductoId == 0)
                 paso = ProductosBLL.Guardar(producto);

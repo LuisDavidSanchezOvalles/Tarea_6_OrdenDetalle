@@ -23,7 +23,7 @@
             <TextBox.Text>
                 <Binding Path="OrdenId" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                     <Binding.ValidationRules>
-                        <ExceptionValidationRule/>
+                        <src:IdValidation x:Name="OrdenIdValidation" ValidatesOnTargetUpdated="True"/>
                     </Binding.ValidationRules>
                 </Binding>
             </TextBox.Text>
@@ -34,7 +34,7 @@
             <TextBox.Text>
                 <Binding Path="ClienteId" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                     <Binding.ValidationRules>
-                        <ExceptionValidationRule/>
+                        <src:IdValidation x:Name="ClienteIdValidation" ValidatesOnTargetUpdated="True"/>
                     </Binding.ValidationRules>
                 </Binding>
             </TextBox.Text>
@@ -50,11 +50,7 @@
         <Label Content="Descripcion:" HorizontalAlignment="Left" Margin="26,177,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="DescripcionTextBox" HorizontalAlignment="Center" Margin="0,177,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Height="26" Grid.Column="1" IsEnabled="False">
             <TextBox.Text>
-                <Binding Path="OrdenesDetalle.Descripcion" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
-                    <Binding.ValidationRules>
-                        <src:NombresValidation x:Name="DescripcionValidation" ValidatesOnTargetUpdated="True"/>
-                    </Binding.ValidationRules>
-                </Binding>
+                <Binding Path="OrdenesDetalle.Descripcion" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay"/>
             </TextBox.Text>
         </TextBox>
 
@@ -63,7 +59,7 @@
             <TextBox.Text>
                 <Binding Path="OrdenesDetalle.Cantidad" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                     <Binding.ValidationRules>
-                        <src:IdValidation x:Name="Validacion" ValidatesOnTargetUpdated="True"/>
+                        <src:CantidadValidation x:Name="CantidadValidacion" ValidatesOnTargetUpdated="True"/>
                     </Binding.ValidationRules>
                 </Binding>
             </TextBox.Text>
@@ -72,11 +68,7 @@
         <Label Content="Precio:" HorizontalAlignment="Left" Margin="42,224,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="PrecioTextBox" HorizontalAlignment="Center" Margin="0,221,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Height="31" Grid.Column="1" IsEnabled="False">
             <TextBox.Text>
-                <Binding Path="OrdenesDetalle.Precio" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
-                    <Binding.ValidationRules>
-                        <ExceptionValidationRule/>
-                    </Binding.ValidationRules>
-                </Binding>
+                <Binding Path="OrdenesDetalle.Precio" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay"/>
             </TextBox.Text>
         </TextBox>
 
@@ -123,7 +115,7 @@
             <TextBox.Text>
                 <Binding Path="OrdenesDetalles.ProductoId" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                     <Binding.ValidationRules>
-                        <ExceptionValidationRule/>
+                        <src:IdValidation x:Name="ProductoIdValidation" ValidatesOnTargetUpdated="True"/>
                     </Binding.ValidationRules>
                 </Binding>
             </TextBox.Text>
@@ -132,22 +124,14 @@
         <Label Content="Nombre Cliente:" HorizontalAlignment="Left" Margin="9,87,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="NombresClienteTextBox" HorizontalAlignment="Center" Margin="0,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Grid.Column="1" Height="26" IsEnabled="False">
             <TextBox.Text>
-                <Binding Path="NombresCliente" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
-                    <Binding.ValidationRules>
-                        <src:NombresValidation x:Name="nombresValidation" ValidatesOnTargetUpdated="True"/>
-                    </Binding.ValidationRules>
-                </Binding>
+                <Binding Path="NombresCliente" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay"/>
             </TextBox.Text>
         </TextBox>
 
         <Label Content="Monto:" HorizontalAlignment="Left" Margin="40,319,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="MontoTextBox" Grid.Column="1" HorizontalAlignment="Center" Margin="0,325,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" Height="23" IsEnabled="False">
             <TextBox.Text>
-                <Binding Path="OrdenesDetalle.Monto" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
-                    <Binding.ValidationRules>
-                        <ExceptionValidationRule/>
-                    </Binding.ValidationRules>
-                </Binding>
+                <Binding Path="OrdenesDetalle.Monto" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay"/>
             </TextBox.Text>
         </TextBox>
 

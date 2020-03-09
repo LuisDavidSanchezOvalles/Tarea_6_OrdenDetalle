@@ -6,27 +6,26 @@ using System.Windows.Controls;
 
 namespace RegistroOrdenDetalle.Validaciones
 {
-    public class TelefonoValidation : ValidationRule
+    public class NombresProductoValidation : ValidationRule
     {
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             string cadena = value as string;
-            cadena = cadena.Replace("-", "");
-
             if (cadena != null)
             {
                 if (cadena.Length <= 0)
-                    return new ValidationResult(false, "Debes poner un Telefono");
+                    return new ValidationResult(false, "Debes poner un Nombre al producto");
 
                 foreach (var caracter in cadena)
                 {
-                    if (!char.IsDigit(caracter))
-                        return new ValidationResult(false, "Solo Telefono solo puede tener numeros");
+                    if (!char.IsLetter(caracter) && !char.IsWhiteSpace(caracter) && !char.IsDigit(caracter))
+                        return new ValidationResult(false, "El nombre solo puede tener letras");
                 }
 
                 return ValidationResult.ValidResult;
+
             }
-            return new ValidationResult(false, "Debes poner algun Telefono");
+            return new ValidationResult(false, "Debes poner un Nombre");
         }
     }
 }
