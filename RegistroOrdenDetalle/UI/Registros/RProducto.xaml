@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RegistroOrdenDetalle.UI.Registros"
+        xmlns:src="clr-namespace:RegistroOrdenDetalle.Validaciones"
         mc:Ignorable="d"
         Title="RProducto" Height="450" Width="800">
     <Grid>
@@ -15,33 +16,34 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="64*"/>
             <RowDefinition Height="80*"/>
-            <RowDefinition Height="85*"/>
-            <RowDefinition Height="205*"/>
+            <RowDefinition Height="65*"/>
+            <RowDefinition Height="170*"/>
+            <RowDefinition Height="55*"/>
         </Grid.RowDefinitions>
-        <Label Content="ProductoId:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Label Content="Nombre Producto:" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center"/>
-        <Label Content="Precio:" HorizontalAlignment="Left" Margin="54,0,0,0" Grid.Row="2" VerticalAlignment="Center"/>
-        <Button x:Name="NuevoButton" Content="Nuevo" HorizontalAlignment="Left" Margin="54,145,0,0" Grid.Row="3" VerticalAlignment="Top" FontSize="24" Click="NuevoButton_Click">
+        <Label Content="ProductoId:" HorizontalAlignment="Center" VerticalAlignment="Center" Height="26" Width="71"/>
+        <Label Content="Nombre Producto:" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" Height="26" Width="109"/>
+        <Label Content="Precio:" HorizontalAlignment="Left" Margin="54,0,0,0" Grid.Row="2" VerticalAlignment="Center" Height="26" Width="45"/>
+        <Button x:Name="NuevoButton" Content="Nuevo" HorizontalAlignment="Left" Margin="54,0,0,0" Grid.Row="4" VerticalAlignment="Center" FontSize="24" Click="NuevoButton_Click" Height="36" Width="74">
             <Button.Background>
                 <ImageBrush ImageSource="C:\Users\luisd\OneDrive\Escritorio\Universidad\Programacion Apliacada 1\Tarea_6\RegistroOrdenDetalle\RegistroOrdenDetalle\Recursos\nuevo.png" Stretch="Uniform"/>
             </Button.Background>
         </Button>
-        <Button x:Name="GuardarButton" Content="Guardar" Grid.Column="1" HorizontalAlignment="Left" Margin="205,145,0,0" Grid.Row="3" VerticalAlignment="Top" FontSize="24" Click="GuardarButton_Click">
+        <Button x:Name="GuardarButton" Content="Guardar" Grid.Column="1" HorizontalAlignment="Left" Margin="205,0,0,0" Grid.Row="4" VerticalAlignment="Center" FontSize="24" Click="GuardarButton_Click" Height="36" Width="89">
             <Button.Background>
                 <ImageBrush Stretch="Uniform" ImageSource="C:\Users\luisd\OneDrive\Escritorio\Universidad\Programacion Apliacada 1\Tarea_6\RegistroOrdenDetalle\RegistroOrdenDetalle\Recursos\guardar.jpg"/>
             </Button.Background>
         </Button>
-        <Button x:Name="EliminarButton" Content="Eliminar" Grid.Column="2" HorizontalAlignment="Center" Margin="0,140,0,0" Grid.Row="3" VerticalAlignment="Top" FontSize="24" Click="EliminarButton_Click">
+        <Button x:Name="EliminarButton" Content="Eliminar" Grid.Column="2" HorizontalAlignment="Center" Margin="0,5,0,0" Grid.Row="4" VerticalAlignment="Top" FontSize="24" Click="EliminarButton_Click" Height="36" Width="89">
             <Button.Background>
                 <ImageBrush Stretch="Uniform" ImageSource="C:\Users\luisd\OneDrive\Escritorio\Universidad\Programacion Apliacada 1\Tarea_6\RegistroOrdenDetalle\RegistroOrdenDetalle\Recursos\eliminar.png"/>
             </Button.Background>
         </Button>
-        <Button x:Name="BuscarButton" Content="Buscar" Grid.Column="2" HorizontalAlignment="Left" Margin="83,0,0,0" VerticalAlignment="Center" FontSize="20" Click="BuscarButton_Click">
+        <Button x:Name="BuscarButton" Content="Buscar" Grid.Column="2" HorizontalAlignment="Left" Margin="83,0,0,0" VerticalAlignment="Center" FontSize="20" Click="BuscarButton_Click" Height="30" Width="62">
             <Button.Background>
                 <ImageBrush Stretch="Uniform" ImageSource="C:\Users\luisd\OneDrive\Escritorio\Universidad\Programacion Apliacada 1\Tarea_6\RegistroOrdenDetalle\RegistroOrdenDetalle\Recursos\buscar.png"/>
             </Button.Background>
         </Button>
-        <TextBox x:Name="ProductoIdTextBox" Grid.Column="1" HorizontalAlignment="Left" Margin="50,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="205">
+        <TextBox x:Name="ProductoIdTextBox" Grid.Column="1" HorizontalAlignment="Left" Margin="50,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="205" Height="18">
             <TextBox.Text>
                 <Binding Path="ProductoId" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                     <Binding.ValidationRules>
@@ -50,16 +52,27 @@
                 </Binding>
             </TextBox.Text>
         </TextBox>
-        <TextBox x:Name="NombreProductoTextBox" Grid.Column="1" HorizontalAlignment="Left" Margin="50,0,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" Width="205">
+        <TextBox x:Name="NombreProductoTextBox" Grid.Column="1" HorizontalAlignment="Left" Margin="50,0,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" Width="205" Height="18">
             <TextBox.Text>
-                <Binding Path="NombreProducto" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay"/>
+                <Binding Path="NombreProducto" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                    <Binding.ValidationRules>
+                        <src:NombresValidation x:Name="nombresValidation" ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
             </TextBox.Text>
         </TextBox>
-        <TextBox x:Name="PrecioTextBox" Grid.Column="1" HorizontalAlignment="Left" Margin="50,30,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="205">
+
+        <TextBox x:Name="PrecioTextBox" Grid.Column="1" HorizontalAlignment="Left" Margin="50,30,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="205" Height="18">
             <TextBox.Text>
-                <Binding Path="Precio" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay"/>
+                <Binding Path="Precio" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                    <Binding.ValidationRules>
+                        <ExceptionValidationRule/>
+                    </Binding.ValidationRules>
+                </Binding>
             </TextBox.Text>
         </TextBox>
+        <DataGrid x:Name="ConsultaDataGrid" Grid.Row="2" Grid.ColumnSpan="3" Margin="18,65,20,0" Grid.RowSpan="2"/>
+        <Button x:Name="ConsultarButton" Content="Consultar" Grid.Column="2" HorizontalAlignment="Left" Margin="94,0,0,0" Grid.Row="2" VerticalAlignment="Center" Click="ConsultarButton_Click"/>
 
     </Grid>
 </Window>

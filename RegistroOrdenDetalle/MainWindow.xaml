@@ -7,13 +7,25 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button x:Name="RegistrarCliente" Content="RegistrarCliente" HorizontalAlignment="Left" Margin="300,84,0,0" VerticalAlignment="Top" Click="RegistrarCliente_Click"/>
-        <Button x:Name="RegistrarProductoButton" Content="Registrar Producto" HorizontalAlignment="Left" Margin="292,184,0,0" VerticalAlignment="Top" Click="RegistrarProductoButton_Click">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="49*"/>
+            <ColumnDefinition Width="48*"/>
+            <ColumnDefinition Width="63*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="24*"/>
+            <RowDefinition Height="120*"/>
+            <RowDefinition Height="95*"/>
+            <RowDefinition Height="140*"/>
+            <RowDefinition Height="55*"/>
+        </Grid.RowDefinitions>
+        <Button x:Name="RegistrarCliente" Content="RegistrarCliente" HorizontalAlignment="Center" VerticalAlignment="Center" Click="RegistrarCliente_Click" Grid.Row="1" Grid.Column="1" FontSize="20"/>
+        <Button x:Name="RegistrarProductoButton" Content="Registrar Producto" HorizontalAlignment="Center" VerticalAlignment="Top" Click="RegistrarProductoButton_Click" Grid.Row="2" Grid.Column="1" Margin="0,24,0,0" FontSize="20">
             <Button.Background>
                 <ImageBrush/>
             </Button.Background>
         </Button>
-        <Button x:Name="RegistrarOrdenButton" Content="Registrar Orden" HorizontalAlignment="Left" Margin="300,269,0,0" VerticalAlignment="Top" Click="RegistrarOrdenButton_Click"/>
+        <Button x:Name="RegistrarOrdenButton" Content="Registrar Orden" HorizontalAlignment="Center" Margin="0,46,0,0" VerticalAlignment="Top" Click="RegistrarOrdenButton_Click" Grid.Row="3" Grid.Column="1" FontSize="20"/>
 
     </Grid>
 </Window>

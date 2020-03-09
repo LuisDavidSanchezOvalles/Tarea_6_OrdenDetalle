@@ -4,9 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RegistroOrdenDetalle.UI.Registros"
+        xmlns:src="clr-namespace:RegistroOrdenDetalle.Validaciones"
         mc:Ignorable="d"
         Title="ROrden" Height="650" Width="480">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="569*"/>
+            <RowDefinition Height="55*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="23*"/>
             <ColumnDefinition Width="34*"/>
@@ -44,7 +50,11 @@
         <Label Content="Descripcion:" HorizontalAlignment="Left" Margin="26,177,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="DescripcionTextBox" HorizontalAlignment="Center" Margin="0,177,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Height="26" Grid.Column="1" IsEnabled="False">
             <TextBox.Text>
-                <Binding Path="OrdenesDetalle.Descripcion" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay"/>
+                <Binding Path="OrdenesDetalle.Descripcion" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                    <Binding.ValidationRules>
+                        <src:NombresValidation x:Name="DescripcionValidation" ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
             </TextBox.Text>
         </TextBox>
 
@@ -62,23 +72,51 @@
         <Label Content="Precio:" HorizontalAlignment="Left" Margin="42,224,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="PrecioTextBox" HorizontalAlignment="Center" Margin="0,221,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Height="31" Grid.Column="1" IsEnabled="False">
             <TextBox.Text>
-                <Binding Path="OrdenesDetalle.Precio" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay"/>
+                <Binding Path="OrdenesDetalle.Precio" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                    <Binding.ValidationRules>
+                        <ExceptionValidationRule/>
+                    </Binding.ValidationRules>
+                </Binding>
             </TextBox.Text>
         </TextBox>
 
-        <Button x:Name="BuscarButton" Content="Buscar" HorizontalAlignment="Left" Margin="102,5,0,0" VerticalAlignment="Top" Height="41" Width="68" Click="BuscarButton_Click" Grid.Column="2"/>
-        <Button x:Name="NuevoButton" Content="Nuevo" HorizontalAlignment="Left" Margin="5,585,0,0" VerticalAlignment="Top" Width="101" Height="39" Click="NuevoButton_Click"/>
-        <Button x:Name="GuardarButon" Content="Guardar" HorizontalAlignment="Left" Margin="49,585,0,0" VerticalAlignment="Top" Height="39" Width="104" Click="GuardarButton_Click" Grid.Column="1"/>
-        <Button x:Name="EliminarButton" Content="Eliminar" HorizontalAlignment="Left" Margin="66,585,0,0" VerticalAlignment="Top" Height="39" Width="104" Click="EliminarButton_Click" Grid.Column="2"/>
+        <Button x:Name="BuscarButton" Content="Buscar" HorizontalAlignment="Left" Margin="102,5,0,0" VerticalAlignment="Top" Height="41" Width="68" Click="BuscarButton_Click" Grid.Column="2">
+            <Button.Background>
+                <ImageBrush Stretch="Uniform" ImageSource="C:\Users\luisd\OneDrive\Escritorio\Universidad\Programacion Apliacada 1\Tarea_6\RegistroOrdenDetalle\RegistroOrdenDetalle\Recursos\buscar.png"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="NuevoButton" Content="Nuevo" HorizontalAlignment="Center" VerticalAlignment="Center" Width="101" Height="39" Click="NuevoButton_Click" Grid.Row="1">
+            <Button.Background>
+                <ImageBrush Stretch="Uniform" ImageSource="C:\Users\luisd\OneDrive\Escritorio\Universidad\Programacion Apliacada 1\Tarea_6\RegistroOrdenDetalle\RegistroOrdenDetalle\Recursos\nuevo.png"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="GuardarButon" Content="Guardar" HorizontalAlignment="Left" Margin="50,0,0,0" VerticalAlignment="Center" Height="39" Width="104" Click="GuardarButton_Click" Grid.Column="1" Grid.Row="1">
+            <Button.Background>
+                <ImageBrush Stretch="Uniform" ImageSource="C:\Users\luisd\OneDrive\Escritorio\Universidad\Programacion Apliacada 1\Tarea_6\RegistroOrdenDetalle\RegistroOrdenDetalle\Recursos\guardar.jpg"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="EliminarButton" Content="Eliminar" HorizontalAlignment="Left" Margin="66,10,0,0" VerticalAlignment="Top" Height="39" Width="104" Click="EliminarButton_Click" Grid.Column="2" Grid.Row="1">
+            <Button.Background>
+                <ImageBrush Stretch="Uniform" ImageSource="C:\Users\luisd\OneDrive\Escritorio\Universidad\Programacion Apliacada 1\Tarea_6\RegistroOrdenDetalle\RegistroOrdenDetalle\Recursos\eliminar.png"/>
+            </Button.Background>
+        </Button>
 
-        <DataGrid x:Name="OrdenDataGrid" Margin="20,364,20,130" Grid.ColumnSpan="3">
+        <DataGrid x:Name="OrdenDataGrid" Margin="7,364,10,65" Grid.ColumnSpan="3">
             <DataGrid.ItemsSource>
                 <Binding Path="OrdenesDetalle" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay"/>
             </DataGrid.ItemsSource>
         </DataGrid>
 
-        <Button x:Name="AgregarButton" Content="Agregar Orden" HorizontalAlignment="Left" Margin="86,322,0,0" VerticalAlignment="Top" Width="88" Height="29" Click="AgregarButton_Click" Grid.Column="2"/>
-        <Button x:Name="RemoverButton" Content="Remover Fila" HorizontalAlignment="Center" Margin="0,514,0,0" VerticalAlignment="Top" Width="96" Height="30" Click="RemoverButton_Click"/>
+        <Button x:Name="AgregarButton" Content="Agregar Orden" HorizontalAlignment="Left" Margin="86,322,0,0" VerticalAlignment="Top" Width="88" Height="29" Click="AgregarButton_Click" Grid.Column="2">
+            <Button.Background>
+                <ImageBrush Stretch="Uniform" ImageSource="C:\Users\luisd\OneDrive\Escritorio\Universidad\Programacion Apliacada 1\Tarea_6\RegistroOrdenDetalle\RegistroOrdenDetalle\Recursos\nuevo.png"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="RemoverButton" Content="Remover Fila" HorizontalAlignment="Center" Margin="0,514,0,0" VerticalAlignment="Top" Width="96" Height="30" Click="RemoverButton_Click">
+            <Button.Background>
+                <ImageBrush Stretch="Uniform" ImageSource="C:\Users\luisd\OneDrive\Escritorio\Universidad\Programacion Apliacada 1\Tarea_6\RegistroOrdenDetalle\RegistroOrdenDetalle\Recursos\eliminar.png"/>
+            </Button.Background>
+        </Button>
 
         <Label Content="ProductoId:" HorizontalAlignment="Left" Margin="29,129,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="ProductoIdTextBox" HorizontalAlignment="Center" Margin="0,129,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Height="26" Grid.Column="1" TextChanged="ProductoIdTextBox_TextChanged">
@@ -94,12 +132,16 @@
         <Label Content="Nombre Cliente:" HorizontalAlignment="Left" Margin="9,87,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="NombresClienteTextBox" HorizontalAlignment="Center" Margin="0,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Grid.Column="1" Height="26" IsEnabled="False">
             <TextBox.Text>
-                <Binding Path="NombresCliente" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay"/>
+                <Binding Path="NombresCliente" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                    <Binding.ValidationRules>
+                        <src:NombresValidation x:Name="nombresValidation" ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
             </TextBox.Text>
         </TextBox>
 
         <Label Content="Monto:" HorizontalAlignment="Left" Margin="40,319,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="MontoTextBox" Grid.Column="1" HorizontalAlignment="Center" Margin="0,325,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143" Height="23" IsEnabled="False">
+        <TextBox x:Name="MontoTextBox" Grid.Column="1" HorizontalAlignment="Center" Margin="0,325,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" Height="23" IsEnabled="False">
             <TextBox.Text>
                 <Binding Path="OrdenesDetalle.Monto" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                     <Binding.ValidationRules>

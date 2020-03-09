@@ -87,91 +87,12 @@ namespace RegistroOrdenDetalle.UI.Registros
                     paso = false;
                 }
             }
-            /*
-            if (string.IsNullOrWhiteSpace(ProductoIdTextBox.Text))
-                paso = false;
-            else
-            {
-                try
-                {
-                    int i = Convert.ToInt32(ProductoIdTextBox.Text);
-                }
-                catch (FormatException)
-                {
-                    paso = false;
-                }
-            }
 
-            if (string.IsNullOrWhiteSpace(NombresClienteTextBox.Text))
+            if (FechaDatePicker.SelectedDate == null || FechaDatePicker.SelectedDate > DateTime.Now)
                 paso = false;
-            else
-            {
-                foreach (var caracter in NombresClienteTextBox.Text)
-                {
-                    if (!char.IsLetter(caracter) && !char.IsWhiteSpace(caracter))
-                        paso = false;
-                }
-            }
 
-            if (string.IsNullOrWhiteSpace(DescripcionTextBox.Text))
+            if (orden.OrdenesDetalle.Count == 0)
                 paso = false;
-            else
-            {
-                foreach (var caracter in DescripcionTextBox.Text)
-                {
-                    if (!char.IsLetter(caracter) && !char.IsWhiteSpace(caracter))
-                        paso = false;
-                }
-            }
-
-            if (string.IsNullOrWhiteSpace(PrecioTextBox.Text))
-                paso = false;
-            else
-            {
-                try
-                {
-                    decimal i = Convert.ToDecimal(PrecioTextBox.Text);
-                }
-                catch (FormatException)
-                {
-                    paso = false;
-                }
-            }
-
-            if (string.IsNullOrWhiteSpace(CantidadTextBox.Text))
-                paso = false;
-            else
-            {
-                try
-                {
-                    int i = Convert.ToInt32(CantidadTextBox.Text);
-                }
-                catch (FormatException)
-                {
-                    paso = false;
-                }
-            }
-
-            if (string.IsNullOrWhiteSpace(MontoTextBox.Text))
-                paso = false;
-            else
-            {
-                try
-                {
-                    decimal i = Convert.ToDecimal(MontoTextBox.Text);
-                }
-                catch (FormatException)
-                {
-                    paso = false;
-                }
-            }*/
-
-            if (OrdenDataGrid.DataContext == null)
-            {
-                MessageBox.Show("Debe de agregar un Detalle Orden...");
-                OrdenDataGrid.Focus();
-                paso = false;
-            }
 
             if (paso == false)
                 MessageBox.Show("Datos invalidos");
@@ -186,6 +107,20 @@ namespace RegistroOrdenDetalle.UI.Registros
             return OrdenAnterior != null;
         }
 
+        private bool ExisteEnLaBaseDeDatosClientes()
+        {
+            Cliente ClienteAnterior = ClientesBLL.Buscar(orden.ClienteId);
+
+            return ClienteAnterior != null;
+        }
+
+        private bool ExisteEnLaBaseDeDatosProductos()
+        {
+            Producto ProductoAnterior = ProductosBLL.Buscar(Convert.ToInt32(ClienteIdTextBox.Text));
+
+            return ProductoAnterior != null;
+        }
+
         private void GuardarButton_Click(object sender, RoutedEventArgs e)
         {
             bool paso = false;
@@ -197,13 +132,13 @@ namespace RegistroOrdenDetalle.UI.Registros
                 paso = OrdenesBLL.Guardar(orden);
             else
             {
-                if (ExisteEnLaBaseDeDatos())
+                if (ExisteEnLaBaseDeDatos() && ExisteEnLaBaseDeDatosClientes() && ExisteEnLaBaseDeDatosProductos())
                 {
                     paso = OrdenesBLL.Modificar(orden);
                 }
                 else
                 {
-                    MessageBox.Show("No se Puede Modificar una Orden que no existe");
+                    MessageBox.Show("No se Puede Modificar una Orden que no existe, no exista un producto o cliente");
                     return;
                 }
             }

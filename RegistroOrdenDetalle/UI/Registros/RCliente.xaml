@@ -4,9 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RegistroOrdenDetalle.UI.Registros"
+        xmlns:src="clr-namespace:RegistroOrdenDetalle.Validaciones"
         mc:Ignorable="d"
-        Title="RCliente" Height="250" Width="450">
-    <Grid>
+        Title="RCliente" Height="500" Width="700">
+    <Grid x:Name="ConsultarButton">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
@@ -15,7 +16,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
@@ -33,7 +34,7 @@
                 <TextBox.Text>
                     <Binding Path="ClienteId" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                         <Binding.ValidationRules>
-                            <ExceptionValidationRule/>
+                            <src:IdValidation x:Name="idValidation" ValidatesOnTargetUpdated="True"/>
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
@@ -55,7 +56,11 @@
         <StackPanel Grid.Row ="1" Grid.Column="2">
             <TextBox x:Name="NombresTextBox" FontSize="16">
                 <TextBox.Text>
-                    <Binding Path="Nombres" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay"/>
+                    <Binding Path="Nombres" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                        <Binding.ValidationRules>
+                            <src:NombresValidation x:Name="nombresValidation" ValidatesOnTargetUpdated="True"/>
+                        </Binding.ValidationRules>
+                    </Binding>
                 </TextBox.Text>
             </TextBox>
         </StackPanel>
@@ -67,7 +72,11 @@
         <StackPanel Grid.Row="2" Grid.Column="2">
             <TextBox x:Name="TelefonoTextBox" FontSize="16">
                 <TextBox.Text>
-                    <Binding Path="Telefono" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay"/>
+                    <Binding Path="Telefono" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                        <Binding.ValidationRules>
+                            <ExceptionValidationRule/>
+                        </Binding.ValidationRules>
+                    </Binding>
                 </TextBox.Text>
             </TextBox>
         </StackPanel>
@@ -79,17 +88,21 @@
         <StackPanel Grid.Row="3" Grid.Column="2">
             <TextBox x:Name="CedulaTextBox" FontSize="16">
                 <TextBox.Text>
-                    <Binding Path="Cedula" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay"/>
+                    <Binding Path="Cedula" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                        <Binding.ValidationRules>
+                            <src:CedulaValidation x:Name="cedulaValidation" ValidatesOnTargetUpdated="True"/>
+                        </Binding.ValidationRules>
+                    </Binding>
                 </TextBox.Text>
-            </TextBox> 
+            </TextBox>
         </StackPanel>
 
         <StackPanel Grid.Row="4" Grid.Column="1">
-            <Label Content="" FontSize="50"></Label>
+            <Label Content="" FontSize="200"></Label>
         </StackPanel>
 
         <StackPanel Grid.Row="5" Grid.Column="1">
-            <Button x:Name="Nuevo" Content="Nuevo" FontSize="24" Click="Nuevo_Click">
+            <Button x:Name="Nuevo" Content="Nuevo" FontSize="24" Click="Nuevo_Click" Height="49">
                 <Button.Background>
                     <ImageBrush Stretch="Uniform" ImageSource="C:\Users\luisd\OneDrive\Escritorio\Universidad\Programacion Apliacada 1\Tarea_6\RegistroOrdenDetalle\RegistroOrdenDetalle\Recursos\nuevo.png"/>
                 </Button.Background>
@@ -97,7 +110,7 @@
         </StackPanel>
 
         <StackPanel Grid.Row="5" Grid.Column="2">
-            <Button x:Name="GuardarButton" Content="Guardar" FontSize="24" Width="87" Click="GuardarButton_Click">
+            <Button x:Name="GuardarButton" Content="Guardar" FontSize="24" Width="86" Click="GuardarButton_Click" Height="49">
                 <Button.Background>
                     <ImageBrush ImageSource="C:\Users\luisd\OneDrive\Escritorio\Universidad\Programacion Apliacada 1\Tarea_6\RegistroOrdenDetalle\RegistroOrdenDetalle/Recursos\guardar.jpg"/>
                 </Button.Background>
@@ -105,11 +118,13 @@
         </StackPanel>
 
         <StackPanel Grid.Row="5" Grid.Column="3">
-            <Button x:Name="EliminarButton" Content="Eliminar" FontSize="24" Click="EliminarButton_Click">
+            <Button x:Name="EliminarButton" Content="Eliminar" FontSize="24" Click="EliminarButton_Click" Height="49">
                 <Button.Background>
                     <ImageBrush ImageSource="C:\Users\luisd\OneDrive\Escritorio\Universidad\Programacion Apliacada 1\Tarea_6\RegistroOrdenDetalle\RegistroOrdenDetalle\Recursos\eliminar.png"/>
                 </Button.Background>
             </Button>
         </StackPanel>
+        <DataGrid x:Name="ConsultaDataGrid" Grid.Column="2" Grid.Row="4" Grid.ColumnSpan="3" Margin="0,0,60,46"/>
+        <Button x:Name="CosultarButton" Content="Consultar" Grid.Column="3" HorizontalAlignment="Left" Margin="18,0,0,3" Grid.Row="2" VerticalAlignment="Bottom" Click="ConsultarButton_Click"/>
     </Grid>
 </Window>

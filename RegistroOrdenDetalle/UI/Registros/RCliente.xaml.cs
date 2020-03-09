@@ -86,9 +86,9 @@ namespace RegistroOrdenDetalle.UI.Registros
 
         private bool ExisteEnLaBaseDeDatos()
         {
-            Cliente ClieteAnterior = ClientesBLL.Buscar(cliente.ClienteId);
+            Cliente ClienteAnterior = ClientesBLL.Buscar(cliente.ClienteId);
 
-            return ClieteAnterior != null;
+            return ClienteAnterior != null;
         }
 
         private void GuardarButton_Click(object sender, RoutedEventArgs e)
@@ -155,6 +155,16 @@ namespace RegistroOrdenDetalle.UI.Registros
         {
             this.DataContext = null;
             this.DataContext = cliente;
+        }
+
+        private void ConsultarButton_Click(object sender, RoutedEventArgs e)
+        {
+            var Listado = new List<Cliente>();
+
+            Listado = ClientesBLL.GetList(p => true);
+
+            ConsultaDataGrid.ItemsSource = null;
+            ConsultaDataGrid.ItemsSource = Listado;
         }
     }
 }

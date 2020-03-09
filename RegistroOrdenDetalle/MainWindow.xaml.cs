@@ -43,5 +43,7 @@ namespace RegistroOrdenDetalle
             ROrden rOrden = new ROrden();
             rOrden.Show();
         }
+
+
     }
 }

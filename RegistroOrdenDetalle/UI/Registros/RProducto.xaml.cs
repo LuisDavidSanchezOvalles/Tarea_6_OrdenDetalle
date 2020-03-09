@@ -159,5 +159,15 @@ namespace RegistroOrdenDetalle.UI.Registros
                 MessageBox.Show("Cliente no encontrado");
             }
         }
+
+        private void ConsultarButton_Click(object sender, RoutedEventArgs e)
+        {
+            var Listado = new List<Producto>();
+
+            Listado = ProductosBLL.GetList(p => true);
+
+            ConsultaDataGrid.ItemsSource = null;
+            ConsultaDataGrid.ItemsSource = Listado;
+        }
     }
 }
